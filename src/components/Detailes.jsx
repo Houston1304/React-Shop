@@ -2,7 +2,7 @@ import { Header } from "./Header";
 import { Filters } from "./Categories";
 import { useLocation } from "react-router-dom";
 import { products } from "./goodsType";
-import { addNewPurchase, store } from "../store/store";
+
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getBasket, saveBasket } from "../storage/storage";

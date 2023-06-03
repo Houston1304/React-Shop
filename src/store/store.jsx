@@ -2,6 +2,7 @@ import { combineReducers, createStore } from "redux";
 
 const SWITCH_SEARCH = "SWITCH_SEARCH";
 const ADD_PURCHASE = "ADD_PURCHASE";
+const CURRENT_PAGE = "CURRENT_PAGE";
 
 export function switchSearch(key) {
   return {
@@ -16,6 +17,10 @@ export function addNewPurchase(purchase) {
     payload: purchase,
   };
 }
+
+export const chengeNumberPage = (text) => {
+  return { type: CURRENT_PAGE, payload: text };
+};
 
 function currentSwitch(state = "", action) {
   switch (action.type) {
@@ -36,6 +41,16 @@ function addBasketArray(state = [], action) {
   }
 }
 
-const reducers = combineReducers({ currentSwitch, addBasketArray });
+const pageSwitch = (state = 1, action) => {
+  switch (action.type) {
+    case CURRENT_PAGE:
+      return { ...state, currentPage: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+const reducers = combineReducers({ currentSwitch, addBasketArray, pageSwitch });
 
 export const store = createStore(reducers);

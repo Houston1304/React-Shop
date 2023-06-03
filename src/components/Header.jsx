@@ -6,7 +6,6 @@ export function Header() {
       <Link to={`/`} style={{ textDecoration: "none" }}>
         <h1>Магазичик</h1>
       </Link>
-      <span>Главная</span>
       <p>
         <a href="magazinchik@mail.ru">Связаться с нами</a>
       </p>

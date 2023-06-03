@@ -2,6 +2,9 @@ import { Filters } from "./Categories";
 import { Header } from "./Header";
 
 import { Link, useLocation } from "react-router-dom";
+import { Pagination } from "./Pagination";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export const products = [
   {
@@ -25,6 +28,7 @@ export const products = [
     img: "../src/assets/UP-101.PNG",
     price: "2450",
   },
+
   {
     value: "Shaman",
     category: "Подсумки",
@@ -43,26 +47,49 @@ export const products = [
 
 export const Type = () => {
   const location = useLocation();
+
   const purchases = products.filter((item) => item.category == location.state);
+
+  const page = useSelector((state) => state.pageSwitch.currentPage);
+
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(10);
+
+  console.log(purchases);
+
+  const purchasesList = purchases.slice(min, max);
+
+  useEffect(() => {
+    setMin(page * 10 - 10);
+    setMax(page * 10);
+
+    console.log(min);
+    console.log(max);
+  });
+
+  console.log(purchasesList);
 
   return (
     <div className="mainWindow">
       <Header />
       <Filters />
       <div className="category">
-        {purchases.map((product) => (
-          <Link
-            to={`/detailes/${product.title}`}
-            state={product.title}
-            style={{ textDecoration: "none" }}
-            key={product.title}
-          >
-            <div key={product.value} id="recommendation-item">
-              <img src={product.img}></img> <span>{product.title}</span>
-              <span>{product.price} Р.</span>
-            </div>
-          </Link>
-        ))}
+        <div className="categoryList">
+          {purchasesList.map((product, index) => (
+            <Link
+              to={`/detailes/${product.title}`}
+              state={product.title}
+              style={{ textDecoration: "none" }}
+              key={index}
+            >
+              <div key={product.value} id="recommendation-item">
+                <img src={product.img}></img> <span>{product.title}</span>
+                <span>{product.price} Р.</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <Pagination list={purchases} />
       </div>
     </div>
   );

@@ -50,6 +50,7 @@ button {
 .header button {
   background-color: black;
   color: rgba(255, 255, 255, 0.781);
+  border: none;
 }
 
 .categories {
@@ -207,11 +208,21 @@ section.slideshow div.slideshow-controller span:active {
 
 .category {
   background-color: rgb(255, 255, 255);
-  height: 800px;
+  height: 900px;
   width: 100%;
   border-radius: 6px;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.categoryList {
+  background-color: rgb(255, 255, 255);
+
+  width: 100%;
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
