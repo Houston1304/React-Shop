@@ -67,8 +67,6 @@ export const Type = () => {
     console.log(max);
   });
 
-  console.log(purchasesList);
-
   return (
     <div className="mainWindow">
       <Header />

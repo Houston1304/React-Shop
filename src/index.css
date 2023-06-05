@@ -366,3 +366,21 @@ section.slideshow div.slideshow-controller span:active {
   display: flex;
   justify-content: flex-end;
 }
+
+.pagination {
+  margin: 0 auto;
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.pagination button {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 80px;
+  height: 20px;
+  font-size: 16px;
+  background-color: #0c0c0ca8;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}

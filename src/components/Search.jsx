@@ -2,7 +2,9 @@ import { Filters } from "./Categories";
 import { Header } from "./Header";
 import { products } from "./GoodsType";
 import { Link, useLocation } from "react-router-dom";
-import { store, switchSearch } from "../store/store";
+import { Pagination } from "./Pagination";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function trimString(s) {
   var l = 0,
@@ -26,9 +28,11 @@ function itemExists(haystack, needle) {
 }
 
 export const Search = () => {
-  console.log(store.getState());
-
   const location = useLocation();
+  const page = useSelector((state) => state.pageSwitch.currentPage);
+
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(10);
 
   const results = [];
 
@@ -47,24 +51,41 @@ export const Search = () => {
 
   searchFor(location.state);
 
+  const purchasesList = results.slice(min, max);
+
+  useEffect(() => {
+    setMin(page * 10 - 10);
+    setMax(page * 10);
+
+    console.log(min);
+    console.log(max);
+  });
+
   return (
     <div className="mainWindow">
       <Header />
       <Filters />
       <div className="category">
-        {results.map((product) => (
-          <Link
-            to={`/detailes/${product.title}`}
-            state={product.title}
-            style={{ textDecoration: "none" }}
-            key={product.title}
-          >
-            <div key={product.value} id="recommendation-item">
-              <img src={product.img}></img> <span>{product.title}</span>
-              <span>{product.price} Р.</span>
-            </div>
-          </Link>
-        ))}
+        <div className="categoryList">
+          {results.length != 0 ? (
+            purchasesList.map((product) => (
+              <Link
+                to={`/detailes/${product.title}`}
+                state={product.title}
+                style={{ textDecoration: "none" }}
+                key={product.title}
+              >
+                <div key={product.value} id="recommendation-item">
+                  <img src={product.img}></img> <span>{product.title}</span>
+                  <span>{product.price} Р.</span>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <span>Нет подходящих результатов</span>
+          )}
+        </div>
+        <Pagination list={results} />
       </div>
     </div>
   );
